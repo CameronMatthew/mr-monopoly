@@ -26,7 +26,7 @@ class Property:
                 raise TooManyPropertiesError(
                     "Cannot build more properties on this plot"
                 )
-            
+
         return property_type
 
     def _next_property_type(self) -> PropertyType | None:
@@ -40,11 +40,11 @@ class Property:
             return PropertyType.HOTEL
 
         return PropertyType.HOTEL
-    
+
     @property
     def houses(self) -> int:
         return self._houses
-    
+
     @property
     def hotels(self) -> int:
         return self._hotels

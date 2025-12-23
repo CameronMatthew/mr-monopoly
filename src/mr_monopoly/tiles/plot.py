@@ -27,8 +27,14 @@ class Plot(OwnableTile):
     colour: Colour
     rent: MoneyField
     rent_with_monopoly: MoneyField
-    rent_with_houses: Annotated[list[MoneyField], Field(min_length=MAX_HOUSES_PER_PROPERTY, max_length=MAX_HOUSES_PER_PROPERTY)]
-    rent_with_hotels: Annotated[list[MoneyField], Field(min_length=MAX_HOTELS_PER_PROPERTY, max_length=MAX_HOTELS_PER_PROPERTY)]
+    rent_with_houses: Annotated[
+        list[MoneyField],
+        Field(min_length=MAX_HOUSES_PER_PROPERTY, max_length=MAX_HOUSES_PER_PROPERTY),
+    ]
+    rent_with_hotels: Annotated[
+        list[MoneyField],
+        Field(min_length=MAX_HOTELS_PER_PROPERTY, max_length=MAX_HOTELS_PER_PROPERTY),
+    ]
     house_price: MoneyField
     hotel_price: MoneyField
 
@@ -40,13 +46,17 @@ class Plot(OwnableTile):
         on_board = board_context.colour_counts.get(self.colour)
 
         if on_board is None:
-            raise ImpossibleBoardContextError("This tile has a colour that isn't on the board")
-        
+            raise ImpossibleBoardContextError(
+                "This tile has a colour that isn't on the board"
+            )
+
         if player_ownerships > on_board:
-            raise ImpossibleBoardContextError("Somehow a player has more ownerships than tiles on the board")
+            raise ImpossibleBoardContextError(
+                "Somehow a player has more ownerships than tiles on the board"
+            )
 
         return player_ownerships == on_board
-    
+
     def _check_monopoly(self, player: Player, board_context: BoardContext) -> None:
         if not self._owns_monopoly(player, board_context):
             raise NoMonopolyError("This action requires a monopoly")

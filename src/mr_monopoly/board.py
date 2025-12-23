@@ -1,5 +1,4 @@
-from .tiles import Tile, Go, Plot, Jail, Tax
-from .property import Property
+from .tiles import Tile, Plot, Jail
 from .colour import Colour
 from .board_context import BoardContext
 
@@ -29,24 +28,3 @@ class Board:
         return BoardContext(
             jail_locations=self._jail_locations(), colour_counts=self._colour_counts()
         )
-
-
-CLASSIC = Board(
-    tiles=[
-        Go(),
-        Plot(
-            name="Old Kent Road",
-            colour=Colour.BROWN,
-            property=Property(
-                house_price=10,
-                hotel_price=100,
-                base_rent=20,
-                hotel_rent=[60],
-                house_rent=[20, 30],
-            ),
-            purchase_price=60,
-        ),
-        Jail(),
-        Tax(),
-    ]
-)
