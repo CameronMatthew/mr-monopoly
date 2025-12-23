@@ -12,7 +12,6 @@ class UtilityType(Enum):
 
 
 class Utilities(OwnableTile):
-    name: str
     type: UtilityType
     rent: list[MoneyField]
 
