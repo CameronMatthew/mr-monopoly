@@ -6,8 +6,7 @@ from mr_monopoly.exceptions import IllegalMoveError, GameError
 
 from .ownable_tile import OwnableTile
 from ..player import Player
-from ..property import Property
-from ..property_type import PropertyType
+from ..property import Property, PropertyType
 from ..colour import Colour
 from ..board_context import BoardContext
 from .._fields import MoneyField

@@ -1,11 +1,16 @@
+from enum import Enum, auto
+
 from mr_monopoly.exceptions import IllegalMoveError
 from mr_monopoly.config import MAX_HOUSES_PER_PROPERTY, MAX_HOTELS_PER_PROPERTY
-
-from .property_type import PropertyType
 
 
 class TooManyPropertiesError(IllegalMoveError):
     pass
+
+
+class PropertyType(Enum):
+    HOUSE = auto()
+    HOTEL = auto()
 
 
 class Property:
