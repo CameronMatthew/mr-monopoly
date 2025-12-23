@@ -16,12 +16,12 @@ class Tiles(Generic[TileCategory]):
     A collection of tiles
     """
 
-    def __init__(self, tiles: list[TileCategory]) -> None:
-        self._tiles = tiles
+    def __init__(self, *args: TileCategory) -> None:
+        self._tiles = list(args)
 
     @classmethod
     def default(cls) -> "Tiles[TileCategory]":
-        return cls([])
+        return cls()
 
     def _type_filter(self, *args: type[ConcreteTile]) -> Iterator[ConcreteTile]:
         for tile in self._tiles:
