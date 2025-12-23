@@ -1,10 +1,18 @@
 from enum import Enum, auto
+from typing import Annotated
+
+from pydantic import Field
+
+from mr_monopoly.exceptions import GameError
 
 from .ownable_tile import OwnableTile
 from ..player import Player
-from .._fields import MoneyField
 from ..board_context import BoardContext
 from ..roll import RollResult
+
+
+class InvalidUtilityConfig(GameError):
+    pass
 
 
 class UtilityType(Enum):
@@ -14,19 +22,26 @@ class UtilityType(Enum):
 
 class Utilities(OwnableTile):
     type: UtilityType
-    rent: list[MoneyField]
+    rent_multiplier: list[Annotated[int, Field(gt=0)]]
 
-    def _get_rent(self, owned_utilities: int) -> MoneyField:
+    def _get_rent_multiplier(self, owned_utilities: int) -> int:
         idx = owned_utilities - 1
-        if idx >= len(self.rent):
+        if idx >= len(self.rent_multiplier):
             raise IndexError("Rent index out of range for utilities.")
 
-        return self.rent[idx]
+        return self.rent_multiplier[idx]
+
+    def _check_multipliers(self, board_context: BoardContext) -> None:
+        multipliers = len(self.rent_multiplier)
+        if multipliers != board_context.utility_count:
+            raise InvalidUtilityConfig(
+                f"Expected {board_context.utility_count} rent multipliers, got {multipliers}"
+            )
 
     def visit_side_effect(
         self, player: Player, board_context: BoardContext, last_roll: RollResult
     ) -> None:
-        del board_context, last_roll
+        self._check_multipliers(board_context)
         if self.is_available():
             return
 
@@ -34,7 +49,8 @@ class Utilities(OwnableTile):
             return
 
         owner = self.fetch_owner()
-        owned_utilities = owner.utility_count()
-        rent = self._get_rent(owned_utilities)
+        owned_utilities = owner.tiles.utility_count()
+        multiplier = self._get_rent_multiplier(owned_utilities)
+        rent = last_roll.total() * multiplier
 
         player.transfer(owner, rent)

@@ -42,7 +42,7 @@ class Plot(OwnableTile):
         self.property = Property()
 
     def _owns_monopoly(self, player: Player, board_context: BoardContext) -> bool:
-        player_ownerships = player.colour_counts().get(self.colour, 0)
+        player_ownerships = player.tiles.count_by_colour().get(self.colour, 0)
         on_board = board_context.colour_counts.get(self.colour)
 
         if on_board is None:

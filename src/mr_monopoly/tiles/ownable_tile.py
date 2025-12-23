@@ -50,7 +50,7 @@ class OwnableTile(Tile):
         player.debit(self.purchase_price)
         self.owner = player
 
-    def sell(self, buyer: Player, price: int) -> None:
+    def sell(self, buyer: Player, price: MoneyField) -> None:
         self.check_ownership(buyer)
         buyer.transfer(self.fetch_owner(), price)
         self.owner = buyer
