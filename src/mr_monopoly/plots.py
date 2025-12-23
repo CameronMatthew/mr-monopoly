@@ -265,4 +265,3 @@ MAYFAIR = Plot(
     hotel_price=200,
     purchase_price=400,
 )
-

@@ -9,6 +9,7 @@ from ..player import Player
 from ..property import Property, PropertyType
 from ..colour import Colour
 from ..board_context import BoardContext
+from ..roll import RollResult
 from .._fields import MoneyField
 from ..config import MAX_HOUSES_PER_PROPERTY, MAX_HOTELS_PER_PROPERTY
 
@@ -70,8 +71,10 @@ class Plot(OwnableTile):
             case PropertyType.HOTEL:
                 player.debit(self.hotel_price)
 
-    def visit_side_effect(self, player: Player, board_context: BoardContext) -> None:
-        _ = board_context  # Unused parameter
+    def visit_side_effect(
+        self, player: Player, board_context: BoardContext, last_roll: RollResult
+    ) -> None:
+        del last_roll
         if self.is_available():
             return
 

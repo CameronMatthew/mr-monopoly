@@ -4,6 +4,7 @@ from .ownable_tile import OwnableTile
 from ..player import Player
 from .._fields import MoneyField
 from ..board_context import BoardContext
+from ..roll import RollResult
 
 
 class UtilityType(Enum):
@@ -22,8 +23,10 @@ class Utilities(OwnableTile):
 
         return self.rent[idx]
 
-    def visit_side_effect(self, player: Player, board_context: BoardContext) -> None:
-        _ = board_context  # Unused parameter
+    def visit_side_effect(
+        self, player: Player, board_context: BoardContext, last_roll: RollResult
+    ) -> None:
+        del board_context, last_roll
         if self.is_available():
             return
 

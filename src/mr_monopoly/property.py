@@ -20,6 +20,9 @@ class Property:
 
     def build_property(self) -> PropertyType:
         property_type = self._next_property_type()
+        if property_type is None:
+            raise TooManyPropertiesError("Cannot build more properties on this plot")
+
         match property_type:
             case PropertyType.HOUSE:
                 self._houses += 1
@@ -27,10 +30,6 @@ class Property:
             case PropertyType.HOTEL:
                 self._hotels += 1
                 self._houses = 0
-            case None:
-                raise TooManyPropertiesError(
-                    "Cannot build more properties on this plot"
-                )
 
         return property_type
 

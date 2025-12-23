@@ -20,3 +20,9 @@ build-backend = "uv_build"
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.10",
+    "ty>=0.0.5",
+]
