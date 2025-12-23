@@ -6,7 +6,7 @@ from .go import Go
 from .jail import Jail
 from .go_to_jail import GoToJail
 from .tax import Tax
-from .utilities import Utilities
+from .utilities import Utilities, UtilityType
 from .station import Station
 from .free_parking import FreeParking
 
@@ -21,6 +21,7 @@ __all__ = [
     "GoToJail",
     "Tax",
     "Utilities",
+    "UtilityType",
     "Station",
     "FreeParking",
 ]

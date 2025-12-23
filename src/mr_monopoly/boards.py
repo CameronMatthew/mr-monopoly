@@ -26,6 +26,11 @@ CLASSIC_UK = Board(
             PENTONVILLE_ROAD,
             Jail(),
             PALL_MALL,
+            Utilities(
+                type=UtilityType.ELECTRIC_COMPANY,
+                rent_multiplier=[4, 10],
+                purchase_price=150,
+            ),
             WHITEHALL,
             NORTHUMBERLAND_AVENUE,
             MARLEYBONE,
@@ -39,6 +44,11 @@ CLASSIC_UK = Board(
             FENCHURCH_ST,
             LEICESTER_SQUARE,
             COVENTRY_STREET,
+            Utilities(
+                type=UtilityType.WATER_WORKS,
+                rent_multiplier=[4, 10],
+                purchase_price=150,
+            ),
             PICCADILLY,
             GoToJail(),
             REGENT_STREET,
