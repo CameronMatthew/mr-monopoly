@@ -1,4 +1,4 @@
-from .tiles import Tile, Tiles, Jail
+from .tiles import Tile, Tiles
 from .board_context import BoardContext
 from ._fields import PositionField
 
@@ -13,12 +13,12 @@ class Board:
     def __getitem__(self, index: PositionField) -> Tile:
         return self._tiles[index]
 
-    def _jail_locations(self) -> list[PositionField]:
-        return [i for i, tile in enumerate(self._tiles) if isinstance(tile, Jail)]
+    @property
+    def tiles(self) -> Tiles[Tile]:
+        return self._tiles
 
     def board_context(self) -> BoardContext:
         return BoardContext(
-            jail_locations=self._jail_locations(),
             colour_counts=self._tiles.count_by_colour(),
             utility_count=self._tiles.utility_count(),
             station_count=self._tiles.station_count(),
